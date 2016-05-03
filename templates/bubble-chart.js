@@ -14,27 +14,25 @@ d3.charts.bubble = function() {
   function chart(selection) {
     selection.each(function(data) {
 
-      // Select the svg element, if it exists.
+      
       var svg = d3.select(this).selectAll("svg").data([
         bubble.nodes(classes(data)).filter(function(d) {return !d.children;})
       ]);
 
-      // Otherwise, create the skeletal chart.
+      
       var gEnter = svg.enter().append("svg").append("g");
-      // Update the outer dimensions.
+      /
       svg.attr("width", diameter)
           .attr("height", diameter);
 
-      // Update the inner dimensions.
       var g = svg.select("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      /* Nodes
-      ************/
+     
       var nodes = svg.select('g').selectAll(".node")
           .data(function(d) { return d; }, function(d) {return d.className;});
 
-      // Enter
+    
       var nodesEnter = nodes.enter()
           .append("g")
           .attr("class", "node");
@@ -48,7 +46,7 @@ d3.charts.bubble = function() {
       nodesEnter.append("text");
 
 
-      // Merge
+      
       var nodesMerge = nodes.transition().duration(200)
           .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
       nodesMerge.select("circle")
@@ -58,7 +56,7 @@ d3.charts.bubble = function() {
           .style("text-anchor", "middle")
           .text(function(d) { return d.className.substring(0, d.r / 4); });
 
-      // Exit
+ 
       var nodesExit = nodes.exit().transition().duration(200);
 
       nodesExit.select("circle").attr('r', 0);
